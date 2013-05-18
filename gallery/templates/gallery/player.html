@@ -1,0 +1,54 @@
+<HTML>
+<HEAD>
+<TITLE>Amazon CloudFront Streaming with Longtail Video JW Player 6</TITLE>	
+
+<!--  This HTML file plays an .mp4 or .flv media file using JW Player 6.
+The following code is from the Longtail Video Setup Wizard at 
+http://www.longtailvideo.com/support/jw-player-setup-wizard.
+-->
+
+<!-- Call the JW Player JavaScript file, jwplayer.js. 
+Replace DOWNLOAD-DISTRIBUTION-DOMAIN-NAME with the domain name of your 
+CloudFront download distribution, for example, d1234.cloudfront.net 
+(begins with "d"). This causes a browser to download the JW Player file 
+before streaming begins.
+-->
+
+<script type='text/javascript' src='https://dvhbnd405x1p.cloudfront.net/jwplayer.js'></script>
+
+</HEAD>
+
+<BODY>
+<H1>This video is streamed by CloudFront and played by JW Player 6.</H1>
+
+<a href="/gallery/">Home</a>
+<!-- Replace STREAMING-DISTRIBUTION-DOMAIN-NAME with the domain name of your 
+streaming distribution, for example, s5678.cloudfront.net (begins with "s").
+
+Replace VIDEO-FILE-NAME with the name of your .mp4 or .flv video file, 
+including the .mp4 or .flv filename extension. For example, if you uploaded 
+my-vacation.mp4, enter my-vacation.mp4.
+-->
+
+<div id='mediaplayer'></div>
+<script type="text/javascript">
+   jwplayer('mediaplayer').setup({
+      file: "{{video.url}}",
+      width: "720",
+      height: "480"
+   });
+</script>
+
+To Download this video, click <a href="https://dvhbnd405x1p.cloudfront.net/{{video.videoname}}">here</a>
+
+<form method="POST" action="">
+    {% csrf_token %}  
+   <table>
+       {{form.as_table}}
+    </table>
+	<input type="hidden" name="video_id" value="{{ video.id }}">
+    <input type="submit" value="Rate" id="Save"/>
+</form>
+The current rating of this video is : {{current_rating}}
+</BODY>
+</HTML>

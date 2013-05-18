@@ -1,0 +1,26 @@
+<HEAD>
+<TITLE>Amazon CloudFront Streaming with Longtail Video JW Player 6</TITLE>	
+
+</HEAD>
+
+<BODY>
+{% if error %}
+<h2> Filetype not supported! Please upload a video only !!!! </h2>
+{% endif %}
+<form enctype="multipart/form-data" method="POST" action="">
+    {% csrf_token %}  
+   <table>
+       {{form.as_table}}
+    </table>
+    <input type="submit" value="Submit" id="Save"/>
+</form>
+
+<ul>
+{% for video in videos %}
+<li><a href="/gallery/player.html?id={{video.id}}">{{video.videoname}}</a> (Rating: {{video.avg_rating}} ) <a href="/gallery/delete.html?id={{video.id}}">Delete this Video </a>
+</li>
+{% endfor %}
+</ul>
+
+
+</BODY>
